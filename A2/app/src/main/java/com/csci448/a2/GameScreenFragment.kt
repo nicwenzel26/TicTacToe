@@ -21,6 +21,19 @@ class GameScreenFragment:Fragment() {
     private lateinit var button_32 : ImageButton
     private lateinit var button_33 : ImageButton
 
+    private lateinit var grid_11: GridSpace
+    private lateinit var grid_12: GridSpace
+    private lateinit var grid_13: GridSpace
+    private lateinit var grid_21: GridSpace
+    private lateinit var grid_22: GridSpace
+    private lateinit var grid_23: GridSpace
+    private lateinit var grid_31: GridSpace
+    private lateinit var grid_32: GridSpace
+    private lateinit var grid_33: GridSpace
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,31 +43,9 @@ class GameScreenFragment:Fragment() {
 
         initButtons(view)
 
+        initGrid()
 
-        val grid_11 = GridSpace(button_11)
-        val grid_12 = GridSpace(button_12)
-        val grid_13 = GridSpace(button_13)
-        val grid_21 = GridSpace(button_21)
-        val grid_22 = GridSpace(button_22)
-        val grid_23 = GridSpace(button_23)
-        val grid_31 = GridSpace(button_31)
-        val grid_32 = GridSpace(button_32)
-        val grid_33 = GridSpace(button_33)
-
-
-
-
-
-        button_11.setOnClickListener { checkSpace(grid_11) }
-        button_12.setOnClickListener { checkSpace(grid_12) }
-        button_13.setOnClickListener { checkSpace(grid_13) }
-        button_21.setOnClickListener { checkSpace(grid_21) }
-        button_22.setOnClickListener { checkSpace(grid_22) }
-        button_23.setOnClickListener { checkSpace(grid_23) }
-        button_31.setOnClickListener { checkSpace(grid_31) }
-        button_32.setOnClickListener { checkSpace(grid_32) }
-        button_33.setOnClickListener { checkSpace(grid_33) }
-
+        initOnClickGrid()
 
         return view
     }
@@ -63,12 +54,20 @@ class GameScreenFragment:Fragment() {
         if(gridSpace.xOrO == null) {
             gridSpace.button.setImageResource(R.drawable.x)
             gridSpace.xOrO = 'x'
+            checkWIn()
         }
 
         else {
             Toast.makeText(context, "That space is already taken", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun checkWIn() {
+        if(grid_11.xOrO == 'x' && grid_12.xOrO == 'x' && grid_13.xOrO == 'x' ) {
+            Toast.makeText(context, "X wins", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     //Init buttons for all the grid spots
     private fun initButtons(view: View) {
@@ -81,5 +80,31 @@ class GameScreenFragment:Fragment() {
         button_31 = view.findViewById(R.id.button_31)
         button_32 = view.findViewById(R.id.button_32)
         button_33 = view.findViewById(R.id.button_33)
+    }
+
+    //Init all the grid spaces
+    private fun initGrid() {
+        grid_11 = GridSpace(button_11)
+        grid_12 = GridSpace(button_12)
+        grid_13 = GridSpace(button_13)
+        grid_21 = GridSpace(button_21)
+        grid_22 = GridSpace(button_22)
+        grid_23 = GridSpace(button_23)
+        grid_31 = GridSpace(button_31)
+        grid_32 = GridSpace(button_32)
+        grid_33 = GridSpace(button_33)
+    }
+
+    //Init the on click listeners for the grid
+    private fun initOnClickGrid() {
+        button_11.setOnClickListener { checkSpace(grid_11) }
+        button_12.setOnClickListener { checkSpace(grid_12) }
+        button_13.setOnClickListener { checkSpace(grid_13) }
+        button_21.setOnClickListener { checkSpace(grid_21) }
+        button_22.setOnClickListener { checkSpace(grid_22) }
+        button_23.setOnClickListener { checkSpace(grid_23) }
+        button_31.setOnClickListener { checkSpace(grid_31) }
+        button_32.setOnClickListener { checkSpace(grid_32) }
+        button_33.setOnClickListener { checkSpace(grid_33) }
     }
 }
