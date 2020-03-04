@@ -38,16 +38,28 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_11"
+
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_12"
+
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_13"
+
                 />
 
 
@@ -63,16 +75,28 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_21"
+
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_22"
+
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_23"
+
                 />
 
         </LinearLayout>
@@ -87,16 +111,25 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_31"
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_32"
                 />
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
+                android:background="@drawable/border"
+                android:scaleType="fitCenter"
+                android:id="@+id/button_33"
                 />
 
         </LinearLayout>
