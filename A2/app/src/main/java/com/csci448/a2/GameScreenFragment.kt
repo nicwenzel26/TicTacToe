@@ -1,15 +1,21 @@
 package com.csci448.a2
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 class GameScreenFragment:Fragment() {
+
+    private lateinit var newGameButton: Button
+    private lateinit var playerTurnTextView: TextView
+    private lateinit var playerWinTextView: TextView
 
     private lateinit var button_11 : ImageButton
     private lateinit var button_12 : ImageButton
@@ -32,6 +38,24 @@ class GameScreenFragment:Fragment() {
     private lateinit var grid_33: GridSpace
 
 
+    private var numOfPlayers = 2
+    private var playerTurn = 1
+
+    interface CallBacks {
+        fun resetGame()
+    }
+
+    private var callBacks: CallBacks? = null
+
+    override fun onAttach(context: Context) {
+        callBacks = context as CallBacks?
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        callBacks = null
+        super.onDetach()
+    }
 
 
     override fun onCreateView(
@@ -41,19 +65,36 @@ class GameScreenFragment:Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.game_screen_fragment, container, false)
 
+        //GRID SETUP
         initButtons(view)
-
         initGrid()
-
         initOnClickGrid()
+
+        newGameButton = view.findViewById(R.id.play_again_button)
+        playerTurnTextView = view.findViewById(R.id.player_turn)
+        playerWinTextView = view.findViewById(R.id.player_wins_text_view)
+
+        playerTurnTextView.text = "Player 1 Turn"
+
+        newGameButton.setOnClickListener { callBacks?.resetGame() }
 
         return view
     }
     //Check if space is used. If yes tell the user, if no assign their piece
     private fun checkSpace(gridSpace: GridSpace) {
         if(gridSpace.xOrO == null) {
-            gridSpace.button.setImageResource(R.drawable.x)
-            gridSpace.xOrO = 'x'
+            if(playerTurn == 1) {
+                gridSpace.button.setImageResource(R.drawable.x)
+                gridSpace.xOrO = 'x'
+                playerTurn = 2
+                playerTurnTextView.text = "Player 2 Turn"
+            }
+            else {
+                gridSpace.button.setImageResource(R.drawable.o)
+                gridSpace.xOrO = 'o'
+                playerTurn = 1
+                playerTurnTextView.text = "Player 1 Turn"
+            }
             checkWIn()
         }
 
@@ -62,10 +103,39 @@ class GameScreenFragment:Fragment() {
         }
     }
 
-    private fun checkWIn() {
-        if(grid_11.xOrO == 'x' && grid_12.xOrO == 'x' && grid_13.xOrO == 'x' ) {
-            Toast.makeText(context, "X wins", Toast.LENGTH_SHORT).show()
+    private fun determineWin(xOrO : Char) {
+        if(grid_11.xOrO == xOrO && grid_12.xOrO == xOrO && grid_13.xOrO == xOrO ) {
+            setWinText(xOrO)
         }
+        else if(grid_11.xOrO == xOrO && grid_21.xOrO == xOrO && grid_31.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_11.xOrO == xOrO && grid_22.xOrO == xOrO && grid_33.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_12.xOrO == xOrO && grid_22.xOrO == xOrO && grid_32.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_13.xOrO == xOrO && grid_23.xOrO == xOrO && grid_33.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_13.xOrO == xOrO && grid_22.xOrO == xOrO && grid_31.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_21.xOrO == xOrO && grid_22.xOrO == xOrO && grid_23.xOrO == xOrO) {
+            setWinText(xOrO)        }
+        else if(grid_31.xOrO == xOrO && grid_32.xOrO == xOrO && grid_33.xOrO == xOrO) {
+            setWinText(xOrO)        }
+    }
+
+    private fun setWinText(xOrO: Char){
+        if(xOrO == 'x') {
+            playerWinTextView.text = "Player 1 Wins!!!"
+        }
+
+        else {
+            playerWinTextView.text = "Player 2 Wins!!!"
+        }
+    }
+
+    private fun checkWIn() {
+        determineWin('x')
+        determineWin('o')
     }
 
 

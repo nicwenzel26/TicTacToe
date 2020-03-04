@@ -3,7 +3,7 @@ package com.csci448.a2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks {
+class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScreenFragment.CallBacks {
 
     override fun onNewGameSelect() {
         val fragment = GameScreenFragment()
@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks {
 
     override fun onExitSelect() {
         System.exit(0)
+    }
+
+    override fun resetGame() {
+        val fragment = GameScreenFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
