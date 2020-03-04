@@ -4,4 +4,8 @@
     <string name="home_page_title">
         <u><b>TIC-TAC-TOE</b></u>
     </string>
+
+    <string name="newGame">NEW GAME</string>
+    <string name="history">HISTORY</string>
+    <string name="pref">PREFERENCES</string>
 </resources>
