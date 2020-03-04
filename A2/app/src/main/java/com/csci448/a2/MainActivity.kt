@@ -10,6 +10,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit()
     }
 
+    override fun onPrefSelect() {
+        val fragment = PrefScreenFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

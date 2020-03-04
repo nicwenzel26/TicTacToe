@@ -10,6 +10,7 @@ class HomeScreenFragment:Fragment() {
 
     interface CallBacks {
         fun onNewGameSelect()
+        fun onPrefSelect()
 
     }
 
@@ -46,6 +47,9 @@ class HomeScreenFragment:Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.new_game_menu_item) {
             callbacks?.onNewGameSelect()
+        }
+        else if(item.itemId == R.id.prefrences_menu_item) {
+            callbacks?.onPrefSelect()
         }
 
         return super.onOptionsItemSelected(item)
