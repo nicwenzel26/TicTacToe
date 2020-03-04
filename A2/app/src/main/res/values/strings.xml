@@ -9,4 +9,9 @@
     <string name="history">HISTORY</string>
     <string name="pref">PREFERENCES</string>
     <string name="exit_label">EXIT</string>
+
+    <string name="player_turn">Player 1\'s Turn</string>
+    <string name="player_wins">Player 1 Wins!</string>
+    <string name="play_again_button_text">PLAY AGAIN</string>
+    <string name="return_button_text">RETURN</string>
 </resources>
