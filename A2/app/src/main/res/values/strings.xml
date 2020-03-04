@@ -8,4 +8,5 @@
     <string name="newGame">NEW GAME</string>
     <string name="history">HISTORY</string>
     <string name="pref">PREFERENCES</string>
+    <string name="exit_label">EXIT</string>
 </resources>
