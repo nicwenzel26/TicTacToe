@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScre
         System.exit(0)
     }
 
+    override fun returnGame() {
+        val fragment = HomeScreenFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit()
+    }
+
     override fun resetGame() {
         val fragment = GameScreenFragment()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()

@@ -16,6 +16,7 @@ class GameScreenFragment:Fragment() {
     private lateinit var newGameButton: Button
     private lateinit var playerTurnTextView: TextView
     private lateinit var playerWinTextView: TextView
+    private lateinit var returnButton: Button
 
     private lateinit var button_11 : ImageButton
     private lateinit var button_12 : ImageButton
@@ -43,6 +44,7 @@ class GameScreenFragment:Fragment() {
 
     interface CallBacks {
         fun resetGame()
+        fun returnGame()
     }
 
     private var callBacks: CallBacks? = null
@@ -73,10 +75,12 @@ class GameScreenFragment:Fragment() {
         newGameButton = view.findViewById(R.id.play_again_button)
         playerTurnTextView = view.findViewById(R.id.player_turn)
         playerWinTextView = view.findViewById(R.id.player_wins_text_view)
+        returnButton = view.findViewById(R.id.return_button)
 
         playerTurnTextView.text = "Player 1 Turn"
 
         newGameButton.setOnClickListener { callBacks?.resetGame() }
+        returnButton.setOnClickListener { callBacks?.returnGame() }
 
         return view
     }
@@ -123,16 +127,20 @@ class GameScreenFragment:Fragment() {
             setWinText(xOrO)        }
     }
 
+    //Setting the winning player text and making the field visable and buttons visable
     private fun setWinText(xOrO: Char){
         if(xOrO == 'x') {
             playerWinTextView.text = "Player 1 Wins!!!"
         }
-
         else {
             playerWinTextView.text = "Player 2 Wins!!!"
         }
+        playerWinTextView.visibility = View.VISIBLE
+        newGameButton.visibility = View.VISIBLE
+        returnButton.visibility = View.VISIBLE
     }
 
+    //Go through the win conditions for each player
     private fun checkWIn() {
         determineWin('x')
         determineWin('o')
