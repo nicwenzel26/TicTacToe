@@ -3,7 +3,12 @@ package com.csci448.a2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks {
+
+    override fun onNewGameSelect() {
+        val fragment = GameScreenFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
