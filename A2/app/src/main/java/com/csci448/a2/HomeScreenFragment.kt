@@ -1,5 +1,6 @@
 package com.csci448.a2
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -11,6 +12,7 @@ class HomeScreenFragment:Fragment() {
     interface CallBacks {
         fun onNewGameSelect()
         fun onPrefSelect()
+        fun onExitSelect()
 
     }
 
@@ -50,6 +52,10 @@ class HomeScreenFragment:Fragment() {
         }
         else if(item.itemId == R.id.prefrences_menu_item) {
             callbacks?.onPrefSelect()
+        }
+
+        else if(item.itemId == R.id.exit_game_menu_item) {
+            callbacks?.onExitSelect()
         }
 
         return super.onOptionsItemSelected(item)
