@@ -23,52 +23,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight=".4"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:id="@+id/win_lose_linear_layout">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".4"
                 android:text="@string/winner"
                 android:textSize="14sp"
+
                 />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:text="@string/loser"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/tie_linear_layout">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
-                android:text="Player"
-                android:id="@+id/winning_player_text_view"
-                android:textSize="12sp"/>
+                android:layout_height="wrap_content"
+                android:text="@string/tie"
+                android:textSize="16sp"
+                android:gravity="center" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".5"
-            android:orientation="vertical">
-
+            android:orientation="horizontal"
+            android:padding="8dp">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
-                android:text="@string/loser"
-                android:textSize="14sp"/>
-
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".4"
+                android:text="Player"
+                android:id="@+id/losing_player_text_view"
+                android:textSize="12sp"/>
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight=".5"
                 android:text="Player"
-                android:id="@+id/losing_player_text_view"/>
+                android:id="@+id/winning_player_text_view"
+                android:textSize="12sp"/>
         </LinearLayout>
 
     </LinearLayout>

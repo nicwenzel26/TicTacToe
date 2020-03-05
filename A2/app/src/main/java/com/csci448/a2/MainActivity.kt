@@ -3,6 +3,7 @@ package com.csci448.a2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.csci448.a2.ui.GameScreenFragment
+import com.csci448.a2.ui.HistoryFragment
 import com.csci448.a2.ui.HomeScreenFragment
 import com.csci448.a2.ui.PrefScreenFragment
 
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScre
 
     override fun onExitSelect() {
         System.exit(0)
+    }
+
+    override fun onHistorySelect() {
+        val fragment = HistoryFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit()
     }
 
     override fun returnGame() {

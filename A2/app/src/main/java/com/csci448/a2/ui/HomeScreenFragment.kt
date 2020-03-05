@@ -12,6 +12,7 @@ class HomeScreenFragment:Fragment() {
         fun onNewGameSelect()
         fun onPrefSelect()
         fun onExitSelect()
+        fun onHistorySelect()
 
     }
 
@@ -55,6 +56,9 @@ class HomeScreenFragment:Fragment() {
 
         else if(item.itemId == R.id.exit_game_menu_item) {
             callbacks?.onExitSelect()
+        }
+        else if(item.itemId == R.id.history_menu_item) {
+            callbacks?.onHistorySelect()
         }
 
         return super.onOptionsItemSelected(item)
