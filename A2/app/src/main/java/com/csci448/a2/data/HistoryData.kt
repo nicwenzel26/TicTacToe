@@ -1,8 +1,10 @@
 package com.csci448.a2.data
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity
 data class HistoryData(@PrimaryKey val id: UUID = UUID.randomUUID(),
                        var winner:String? = null,
                        var singlePlayer: Boolean = true,

@@ -23,7 +23,7 @@ class HistoryFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val factory = HistoryViewModelFactory()
+        val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
 

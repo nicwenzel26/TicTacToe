@@ -1,10 +1,12 @@
 package com.csci448.a2.ui
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.csci448.a2.data.HistoryRepository
 
-class HistoryViewModelFactory: ViewModelProvider.Factory {
+class HistoryViewModelFactory(private val context: Context): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor().newInstance()
+        return modelClass.getConstructor(HistoryRepository::class.java).newInstance(HistoryRepository.getInstance(context))
     }
 }

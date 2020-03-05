@@ -8,6 +8,9 @@ private const val DATABASE_NAME = "history-database"
 @Database(entities = [HistoryData::class], version = 1)
 @TypeConverters(HistoryConverters::class)
 abstract class HistoryDatabase: RoomDatabase() {
+
+    abstract fun historyDao() : HistoryDao
+
     companion object {
         private var instance: HistoryDatabase? = null
 
