@@ -1,4 +1,4 @@
-package com.csci448.a2
+package com.csci448.a2.data
 
 import android.widget.ImageButton
 

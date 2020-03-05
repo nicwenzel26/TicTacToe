@@ -14,4 +14,6 @@
     <string name="player_wins">Player 1 Wins!</string>
     <string name="play_again_button_text">PLAY AGAIN</string>
     <string name="return_button_text">RETURN</string>
+    <string name="winner">Winner</string>
+    <string name="loser">Loser</string>
 </resources>

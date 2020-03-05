@@ -1,11 +1,10 @@
-package com.csci448.a2
+package com.csci448.a2.ui
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.csci448.a2.R
 
 class HomeScreenFragment:Fragment() {
 

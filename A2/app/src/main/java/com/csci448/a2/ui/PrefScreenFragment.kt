@@ -1,10 +1,11 @@
-package com.csci448.a2
+package com.csci448.a2.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.csci448.a2.R
 
 class PrefScreenFragment:Fragment() {
 

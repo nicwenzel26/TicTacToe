@@ -1,4 +1,4 @@
-package com.csci448.a2
+package com.csci448.a2.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import java.util.*
+import com.csci448.a2.R
+import com.csci448.a2.data.GridSpace
 
 class GameScreenFragment:Fragment() {
 
@@ -88,7 +89,7 @@ class GameScreenFragment:Fragment() {
 
         return view
     }
-
+    //Adding all the grid spaces to the list
     private fun addGridToList() {
         listOfGridSpace.add(grid_11)
         listOfGridSpace.add(grid_12)
