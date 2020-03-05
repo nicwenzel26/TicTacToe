@@ -39,8 +39,9 @@ class GameScreenFragment:Fragment() {
     private lateinit var grid_32: GridSpace
     private lateinit var grid_33: GridSpace
 
+    private var listOfGridSpace = mutableListOf<GridSpace>()
 
-    private var numOfPlayers = 1
+    private var numOfPlayers = 2
     private var playerTurn = 1
 
     interface CallBacks {
@@ -72,6 +73,8 @@ class GameScreenFragment:Fragment() {
         initButtons(view)
         initGrid()
         initOnClickGrid()
+        addGridToList()
+
 
         newGameButton = view.findViewById(R.id.play_again_button)
         playerTurnTextView = view.findViewById(R.id.player_turn)
@@ -85,6 +88,20 @@ class GameScreenFragment:Fragment() {
 
         return view
     }
+
+    private fun addGridToList() {
+        listOfGridSpace.add(grid_11)
+        listOfGridSpace.add(grid_12)
+        listOfGridSpace.add(grid_13)
+        listOfGridSpace.add(grid_21)
+        listOfGridSpace.add(grid_22)
+        listOfGridSpace.add(grid_23)
+        listOfGridSpace.add(grid_31)
+        listOfGridSpace.add(grid_32)
+        listOfGridSpace.add(grid_33)
+
+    }
+
     //Check if space is used. If yes tell the user, if no assign their piece
     private fun checkSpace(gridSpace: GridSpace) {
         if(gridSpace.xOrO == null) {
@@ -110,7 +127,7 @@ class GameScreenFragment:Fragment() {
             Toast.makeText(context, "That space is already taken", Toast.LENGTH_SHORT).show()
         }
     }
-
+    //Turn for the computer if the player is playing a 1 person game
     private fun computerTurn() {
         var randGridSpace = (1..9).random()
         val badButton = ImageButton(context)
@@ -150,9 +167,6 @@ class GameScreenFragment:Fragment() {
         playerTurn = 1
         playerTurnTextView.text = "Player 1 Turn"
     }
-
-
-
     //Go through all win conditions if won set text and remove the on click listeners
     private fun determineWin(xOrO : Char) {
         if(grid_11.xOrO == xOrO && grid_12.xOrO == xOrO && grid_13.xOrO == xOrO ) {
@@ -183,15 +197,15 @@ class GameScreenFragment:Fragment() {
     }
     //Removes the on click listeners for all the buttons so after win there is no more play
     private fun removeOnClickListener() {
-        grid_11.button.setOnClickListener { null }
-        grid_12.button.setOnClickListener { null }
-        grid_13.button.setOnClickListener { null }
-        grid_21.button.setOnClickListener { null }
-        grid_22.button.setOnClickListener { null }
-        grid_23.button.setOnClickListener { null }
-        grid_31.button.setOnClickListener { null }
-        grid_32.button.setOnClickListener { null }
-        grid_33.button.setOnClickListener { null }
+        grid_11.button.setOnClickListener {  }
+        grid_12.button.setOnClickListener {  }
+        grid_13.button.setOnClickListener {  }
+        grid_21.button.setOnClickListener { }
+        grid_22.button.setOnClickListener {  }
+        grid_23.button.setOnClickListener { }
+        grid_31.button.setOnClickListener {  }
+        grid_32.button.setOnClickListener {  }
+        grid_33.button.setOnClickListener {  }
     }
 
     //Setting the winning player text and making the field visable and buttons visable
@@ -211,8 +225,24 @@ class GameScreenFragment:Fragment() {
     private fun checkWIn() {
         determineWin('x')
         determineWin('o')
+        determineTie()
     }
 
+    private fun determineTie() {
+        var allFull = true
+        for(item in listOfGridSpace) {
+            if(item.xOrO == null) {
+                allFull = false
+            }
+        }
+
+        if(allFull) {
+            playerWinTextView.text = "Tie!!!"
+            playerWinTextView.visibility = View.VISIBLE
+            newGameButton.visibility = View.VISIBLE
+            returnButton.visibility = View.VISIBLE
+        }
+    }
 
     //Init buttons for all the grid spots
     private fun initButtons(view: View) {
