@@ -1,12 +1,22 @@
 package com.csci448.a2.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import java.util.*
+import java.util.concurrent.Executors
 
 class HistoryRepository(private val historyDao: HistoryDao) {
+    private val executor = Executors.newSingleThreadExecutor()
 
-    fun getHistory():List<HistoryData> = historyDao.getHistory()
-    fun getHistoryData(id:UUID):HistoryData? = historyDao.getHistoryData(id)
+
+    fun getHistory():LiveData<List<HistoryData>> = historyDao.getHistory()
+    fun getHistoryData(id:UUID):LiveData<HistoryData?> = historyDao.getHistoryData(id)
+    fun insertGame(historyData: HistoryData) {
+        executor.execute{
+            historyDao.insertGame(historyData)
+        }
+    }
+
 
     companion object{
         private var instance: HistoryRepository? = null

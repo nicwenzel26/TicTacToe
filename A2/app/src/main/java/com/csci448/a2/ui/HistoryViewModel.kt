@@ -5,5 +5,9 @@ import com.csci448.a2.data.HistoryData
 import com.csci448.a2.data.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository):ViewModel() {
-    val history = historyRepository.getHistory()
+    val historyListLiveData = historyRepository.getHistory()
+
+    fun addGame(historyData: HistoryData) {
+        historyRepository.insertGame(historyData)
+    }
     }

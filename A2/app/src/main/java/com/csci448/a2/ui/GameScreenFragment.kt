@@ -10,8 +10,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.csci448.a2.R
 import com.csci448.a2.data.GridSpace
+import com.csci448.a2.data.HistoryData
 
 class GameScreenFragment:Fragment() {
 
@@ -19,6 +21,8 @@ class GameScreenFragment:Fragment() {
     private lateinit var playerTurnTextView: TextView
     private lateinit var playerWinTextView: TextView
     private lateinit var returnButton: Button
+    private lateinit var historyViewModel: HistoryViewModel
+
 
     private lateinit var button_11 : ImageButton
     private lateinit var button_12 : ImageButton
@@ -60,6 +64,13 @@ class GameScreenFragment:Fragment() {
     override fun onDetach() {
         callBacks = null
         super.onDetach()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val factory = HistoryViewModelFactory(requireContext())
+        historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
 
 
@@ -168,32 +179,65 @@ class GameScreenFragment:Fragment() {
         playerTurn = 1
         playerTurnTextView.text = "Player 1 Turn"
     }
+
+    private fun createGameHistory(winner: Char) {
+        val game = HistoryData()
+        if(numOfPlayers == 2) {
+            game.singlePlayer = false
+            if(winner == 'x') {
+                game.winner = "Player 1"
+                game.loser = "Player 2"
+                game.didTie = false
+            }
+            else if (winner == 'o'){
+                game.winner = "Player 2"
+                game.loser = "Player 1"
+                game.didTie = false
+            }
+
+            else {
+                game.didTie = true
+                game.winner = "Player 1"
+                game.loser = "Player 2"
+            }
+        }
+        historyViewModel.addGame(game)
+
+    }
+
     //Go through all win conditions if won set text and remove the on click listeners
     private fun determineWin(xOrO : Char) {
         if(grid_11.xOrO == xOrO && grid_12.xOrO == xOrO && grid_13.xOrO == xOrO ) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()
         }
         else if(grid_11.xOrO == xOrO && grid_21.xOrO == xOrO && grid_31.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
         else if(grid_11.xOrO == xOrO && grid_22.xOrO == xOrO && grid_33.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
         else if(grid_12.xOrO == xOrO && grid_22.xOrO == xOrO && grid_32.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
         else if(grid_13.xOrO == xOrO && grid_23.xOrO == xOrO && grid_33.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
         else if(grid_13.xOrO == xOrO && grid_22.xOrO == xOrO && grid_31.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
         else if(grid_21.xOrO == xOrO && grid_22.xOrO == xOrO && grid_23.xOrO == xOrO) {
             setWinText(xOrO)
             removeOnClickListener()}
         else if(grid_31.xOrO == xOrO && grid_32.xOrO == xOrO && grid_33.xOrO == xOrO) {
             setWinText(xOrO)
+            createGameHistory(xOrO)
             removeOnClickListener()}
     }
     //Removes the on click listeners for all the buttons so after win there is no more play
@@ -242,6 +286,7 @@ class GameScreenFragment:Fragment() {
             playerWinTextView.visibility = View.VISIBLE
             newGameButton.visibility = View.VISIBLE
             returnButton.visibility = View.VISIBLE
+            createGameHistory('t')
         }
     }
 

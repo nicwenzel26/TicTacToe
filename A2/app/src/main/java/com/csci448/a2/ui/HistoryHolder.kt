@@ -25,8 +25,8 @@ class HistoryHolder(val view: View):RecyclerView.ViewHolder(view) {
             tieLinearLayout.visibility = View.VISIBLE
         }
 
-        winnerTextView.text = this.historyData.winner
-        loserTextView.text = this.historyData.loser
+        winnerTextView.text = this.historyData.loser
+        loserTextView.text = this.historyData.winner
         dateTextView.text = this.historyData.date.toString()
     }
     

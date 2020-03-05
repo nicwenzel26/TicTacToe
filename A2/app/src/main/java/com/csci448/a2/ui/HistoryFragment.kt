@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.a2.R
+import com.csci448.a2.data.HistoryData
 
 class HistoryFragment:Fragment() {
 
@@ -36,15 +38,19 @@ class HistoryFragment:Fragment() {
         historyRecyclerView = view.findViewById(R.id.history_recycler_view) as RecyclerView
         historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        updateUI()
+        updateUI(emptyList())
 
         return view
     }
 
-    private fun updateUI() {
-        val history = historyViewModel.history
+    private fun updateUI(history:List<HistoryData>) {
         adapter = HistoryListAdapter(history)
         historyRecyclerView.adapter = adapter
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        historyViewModel.historyListLiveData.observe(viewLifecycleOwner, Observer { history -> history?.let { updateUI(history) } })
     }
 }
