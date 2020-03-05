@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import java.util.*
 
 class GameScreenFragment:Fragment() {
 
@@ -39,7 +40,7 @@ class GameScreenFragment:Fragment() {
     private lateinit var grid_33: GridSpace
 
 
-    private var numOfPlayers = 2
+    private var numOfPlayers = 1
     private var playerTurn = 1
 
     interface CallBacks {
@@ -92,6 +93,10 @@ class GameScreenFragment:Fragment() {
                 gridSpace.xOrO = 'x'
                 playerTurn = 2
                 playerTurnTextView.text = "Player 2 Turn"
+
+                if(numOfPlayers == 1) {
+                    computerTurn()
+                }
             }
             else {
                 gridSpace.button.setImageResource(R.drawable.o)
@@ -101,30 +106,92 @@ class GameScreenFragment:Fragment() {
             }
             checkWIn()
         }
-
         else {
             Toast.makeText(context, "That space is already taken", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun computerTurn() {
+        var randGridSpace = (1..9).random()
+        val badButton = ImageButton(context)
+        var gridSpace = GridSpace(badButton)
+
+        when(randGridSpace) {
+            1 -> gridSpace = grid_11
+            2 -> gridSpace = grid_12
+            3 -> gridSpace = grid_13
+            4 -> gridSpace = grid_21
+            5 -> gridSpace = grid_22
+            6 -> gridSpace = grid_23
+            7 -> gridSpace = grid_31
+            8 -> gridSpace = grid_32
+            9 -> gridSpace = grid_33
+            else -> gridSpace = gridSpace
+        }
+
+        while(gridSpace.xOrO != null) {
+            randGridSpace = (1..9).random()
+            when(randGridSpace) {
+                1 -> gridSpace = grid_11
+                2 -> gridSpace = grid_12
+                3 -> gridSpace = grid_13
+                4 -> gridSpace = grid_21
+                5 -> gridSpace = grid_22
+                6 -> gridSpace = grid_23
+                7 -> gridSpace = grid_31
+                8 -> gridSpace = grid_32
+                9 -> gridSpace = grid_33
+                else -> gridSpace = gridSpace
+            }
+        }
+
+        gridSpace.xOrO = 'o'
+        gridSpace.button.setImageResource(R.drawable.o)
+        playerTurn = 1
+        playerTurnTextView.text = "Player 1 Turn"
+    }
+
+
+
+    //Go through all win conditions if won set text and remove the on click listeners
     private fun determineWin(xOrO : Char) {
         if(grid_11.xOrO == xOrO && grid_12.xOrO == xOrO && grid_13.xOrO == xOrO ) {
             setWinText(xOrO)
+            removeOnClickListener()
         }
         else if(grid_11.xOrO == xOrO && grid_21.xOrO == xOrO && grid_31.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_11.xOrO == xOrO && grid_22.xOrO == xOrO && grid_33.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_12.xOrO == xOrO && grid_22.xOrO == xOrO && grid_32.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_13.xOrO == xOrO && grid_23.xOrO == xOrO && grid_33.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_13.xOrO == xOrO && grid_22.xOrO == xOrO && grid_31.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_21.xOrO == xOrO && grid_22.xOrO == xOrO && grid_23.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
         else if(grid_31.xOrO == xOrO && grid_32.xOrO == xOrO && grid_33.xOrO == xOrO) {
-            setWinText(xOrO)        }
+            setWinText(xOrO)
+            removeOnClickListener()}
+    }
+    //Removes the on click listeners for all the buttons so after win there is no more play
+    private fun removeOnClickListener() {
+        grid_11.button.setOnClickListener { null }
+        grid_12.button.setOnClickListener { null }
+        grid_13.button.setOnClickListener { null }
+        grid_21.button.setOnClickListener { null }
+        grid_22.button.setOnClickListener { null }
+        grid_23.button.setOnClickListener { null }
+        grid_31.button.setOnClickListener { null }
+        grid_32.button.setOnClickListener { null }
+        grid_33.button.setOnClickListener { null }
     }
 
     //Setting the winning player text and making the field visable and buttons visable
