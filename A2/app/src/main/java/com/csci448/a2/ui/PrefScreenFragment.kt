@@ -27,10 +27,10 @@ class PrefScreenFragment: PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref, rootKey)
 
-
-
+        //Finding the erase preference
         val deleteData :Preference? = findPreference("erase")
 
+        //If the user clicks the erase preference wipe the database
         deleteData?.setOnPreferenceClickListener {
             historyViewModel.deleteAll()
             true
