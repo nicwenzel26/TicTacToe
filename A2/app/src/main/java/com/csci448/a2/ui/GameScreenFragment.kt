@@ -20,6 +20,9 @@ import com.csci448.a2.data.HistoryData
 
 private const val logTag = "448.GSF"
 private const val KEY_INDEX_TURN = "player turn"
+private const val KEY_INDEX_BOARD = "current board"
+private const val KEY_INDEX_WON = "has won"
+private const val KEY_INDEX_WINNER = "winner"
 
 class GameScreenFragment:Fragment() {
     /*
@@ -62,6 +65,9 @@ class GameScreenFragment:Fragment() {
     private var playerTwoSymb = 'o'
     private var playerOneResourse = R.drawable.x
     private var playerTwoResourse = R.drawable.o
+    private var currentButtons = charArrayOf('b','b','b','b','b','b', 'b', 'b', 'b')
+    private var playerWon = false
+    private var winningPlayer : String? = null
 
 
     //Interface for managing the transition between fragments. Behavior determined by MainActivity
@@ -90,6 +96,10 @@ class GameScreenFragment:Fragment() {
         super.onSaveInstanceState(savedInstanceState)
 
         savedInstanceState.putInt(KEY_INDEX_TURN, playerTurn )
+        savedInstanceState.putCharArray(KEY_INDEX_BOARD, currentButtons)
+        savedInstanceState.putBoolean(KEY_INDEX_WON, playerWon)
+        savedInstanceState.putString(KEY_INDEX_WINNER, winningPlayer)
+
     }
 
     //Setting view models and variables
@@ -112,6 +122,8 @@ class GameScreenFragment:Fragment() {
         //If the player one first preference is checked se the current player turn accordingly
         if(playerOneFirst) playerTurn = 2
         else playerTurn = 1
+
+        currentButtons = savedInstanceState?.getCharArray(KEY_INDEX_BOARD) ?: charArrayOf('b','b','b','b','b','b', 'b', 'b', 'b')
 
         val currentPlayerTurn = savedInstanceState?.getInt(KEY_INDEX_TURN, 0)?: 0
         if(currentPlayerTurn != 0 ) {
@@ -157,6 +169,18 @@ class GameScreenFragment:Fragment() {
         playerWinTextView = view.findViewById(R.id.player_wins_text_view)
         returnButton = view.findViewById(R.id.return_button)
 
+        for(i in 0..8) {
+            if(currentButtons[i] == playerOneSymb){
+                listOfGridSpace[i].button.setImageResource(playerOneResourse)
+                listOfGridSpace[i].xOrO = playerOneSymb
+            }
+
+            if(currentButtons[i] == playerTwoSymb) {
+                listOfGridSpace[i].button.setImageResource(playerTwoResourse)
+                listOfGridSpace[i].xOrO = playerTwoSymb
+            }
+        }
+
         //Setting current turn text based on preference
         if(playerTurn == 1) playerTurnTextView.text = "Player 1 Turn"
         else {
@@ -164,6 +188,16 @@ class GameScreenFragment:Fragment() {
             if(numOfPlayers == 1) {
                 computerTurn()
             }
+        }
+
+        val hasWon = savedInstanceState?.getBoolean(KEY_INDEX_WON) ?: false
+        val winner = savedInstanceState?.getString(KEY_INDEX_WINNER)
+
+        if(hasWon) {
+            newGameButton.visibility = View.VISIBLE
+            returnButton.visibility = View.VISIBLE
+            playerWinTextView.visibility = View.VISIBLE
+            playerWinTextView.text = winner
         }
 
         //Setting on click listeners for end game buttons
@@ -194,6 +228,7 @@ class GameScreenFragment:Fragment() {
                 gridSpace.button.setImageResource(playerOneResourse)
                 gridSpace.xOrO = playerOneSymb
                 playerTurn = 2
+                currentButtons[gridSpace.position] = playerOneSymb
                 playerTurnTextView.text = "Player 2 Turn"
 
                 if(numOfPlayers == 1) {
@@ -203,6 +238,7 @@ class GameScreenFragment:Fragment() {
             else {
                 gridSpace.button.setImageResource(playerTwoResourse)
                 gridSpace.xOrO = playerTwoSymb
+                currentButtons[gridSpace.position] = playerTwoSymb
                 playerTurn = 1
                 playerTurnTextView.text = "Player 1 Turn"
             }
@@ -216,7 +252,7 @@ class GameScreenFragment:Fragment() {
     private fun computerTurn() {
         var randGridSpace = (1..9).random()
         val badButton = ImageButton(context)
-        var gridSpace = GridSpace(badButton)
+        var gridSpace = GridSpace(badButton, position = -1)
 
         when(randGridSpace) {
             1 -> gridSpace = grid_11
@@ -250,6 +286,7 @@ class GameScreenFragment:Fragment() {
         gridSpace.xOrO = playerTwoSymb
         gridSpace.button.setImageResource(playerTwoResourse)
         playerTurn = 1
+        currentButtons[gridSpace.position] = playerTwoSymb
         playerTurnTextView.text = "Player 1 Turn"
     }
 
@@ -346,17 +383,21 @@ class GameScreenFragment:Fragment() {
     private fun setWinText(xOrO: Char){
         if(xOrO == playerOneSymb) {
             playerWinTextView.text = "Player 1 Wins!!!"
+            winningPlayer = "Player 1 Wins!!!"
         }
         else if(numOfPlayers == 2) {
             playerWinTextView.text = "Player 2 Wins!!!"
+            winningPlayer = "Player 2 Wins!!!"
         }
 
         else {
             playerWinTextView.text = "Computer Wins!!!"
+            winningPlayer = "Computer Wins!!!"
         }
         playerWinTextView.visibility = View.VISIBLE
         newGameButton.visibility = View.VISIBLE
         returnButton.visibility = View.VISIBLE
+        playerWon = true
     }
 
     //Go through the win conditions for each player
@@ -376,6 +417,8 @@ class GameScreenFragment:Fragment() {
 
         if(allFull) {
             playerWinTextView.text = "Tie!!!"
+            winningPlayer = "Tie!!!"
+            playerWon = true
             playerWinTextView.visibility = View.VISIBLE
             newGameButton.visibility = View.VISIBLE
             returnButton.visibility = View.VISIBLE
@@ -398,15 +441,15 @@ class GameScreenFragment:Fragment() {
 
     //Init all the grid spaces
     private fun initGrid() {
-        grid_11 = GridSpace(button_11)
-        grid_12 = GridSpace(button_12)
-        grid_13 = GridSpace(button_13)
-        grid_21 = GridSpace(button_21)
-        grid_22 = GridSpace(button_22)
-        grid_23 = GridSpace(button_23)
-        grid_31 = GridSpace(button_31)
-        grid_32 = GridSpace(button_32)
-        grid_33 = GridSpace(button_33)
+        grid_11 = GridSpace(button_11, position = 0)
+        grid_12 = GridSpace(button_12, position =  1)
+        grid_13 = GridSpace(button_13, position = 2)
+        grid_21 = GridSpace(button_21, position = 3)
+        grid_22 = GridSpace(button_22, position = 4)
+        grid_23 = GridSpace(button_23, position = 5)
+        grid_31 = GridSpace(button_31, position = 6)
+        grid_32 = GridSpace(button_32, position = 7)
+        grid_33 = GridSpace(button_33, position = 8)
     }
 
     //Init the on click listeners for the grid
