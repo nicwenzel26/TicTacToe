@@ -15,11 +15,11 @@
 
         <CheckBoxPreference
             app:key="humanStart"
-            app:title="Human Goes First?"/>
+            app:title="Computer/Player 2 Goes First?"/>
 
         <CheckBoxPreference
             app:key="player_symb"
-            app:title="Player 1 is X?"/>
+            app:title="Player 1 is O?"/>
 
     </PreferenceCategory>
 

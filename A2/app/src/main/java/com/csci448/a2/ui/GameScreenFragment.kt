@@ -57,6 +57,10 @@ class GameScreenFragment:Fragment() {
     private var listOfGridSpace = mutableListOf<GridSpace>()
     private var numOfPlayers = 2
     private var playerTurn = 1
+    private var playerOneSymb = 'x'
+    private var playerTwoSymb = 'o'
+    private var playerOneResourse = R.drawable.x
+    private var playerTwoResourse = R.drawable.o
 
 
     //Interface for managing the transition between fragments. Behavior determined by MainActivity
@@ -91,14 +95,29 @@ class GameScreenFragment:Fragment() {
         val twoPlayer = sharedPreferences.getBoolean("numPlayers", false)
         //Checking to see if the player wants player 1 to start
         val playerOneFirst = sharedPreferences.getBoolean("humanStart", true)
+        //Checking to see if player one wants to be X
+        val playerOneX = sharedPreferences.getBoolean("player_symb", true)
 
         //If the two player preference is checked set the number of players to 2 otherwise to 1
         if(twoPlayer) numOfPlayers = 2
         else numOfPlayers = 1
 
         //If the player one first preference is checked se the current player turn accordingly
-        if(playerOneFirst) playerTurn = 1
-        else playerTurn = 2
+        if(playerOneFirst) playerTurn = 2
+        else playerTurn = 1
+
+        if(playerOneX) {
+            playerOneSymb = 'o'
+            playerOneResourse = R.drawable.o
+            playerTwoSymb = 'x'
+            playerTwoResourse = R.drawable.x
+        }
+        else {
+            playerOneSymb = 'x'
+            playerOneResourse = R.drawable.x
+            playerTwoSymb = 'o'
+            playerTwoResourse = R.drawable.o
+        }
 
 
         val factory = HistoryViewModelFactory(requireContext())
@@ -128,7 +147,12 @@ class GameScreenFragment:Fragment() {
 
         //Setting current turn text based on preference
         if(playerTurn == 1) playerTurnTextView.text = "Player 1 Turn"
-        else playerTurnTextView.text = "Player 2 Turn"
+        else {
+            playerTurnTextView.text = "Player 2 Turn"
+            if(numOfPlayers == 1) {
+                computerTurn()
+            }
+        }
 
         //Setting on click listeners for end game buttons
         newGameButton.setOnClickListener { callBacks?.resetGame() }
@@ -154,8 +178,9 @@ class GameScreenFragment:Fragment() {
     private fun checkSpace(gridSpace: GridSpace) {
         if(gridSpace.xOrO == null) {
             if(playerTurn == 1) {
-                gridSpace.button.setImageResource(R.drawable.x)
-                gridSpace.xOrO = 'x'
+
+                gridSpace.button.setImageResource(playerOneResourse)
+                gridSpace.xOrO = playerOneSymb
                 playerTurn = 2
                 playerTurnTextView.text = "Player 2 Turn"
 
@@ -164,8 +189,8 @@ class GameScreenFragment:Fragment() {
                 }
             }
             else {
-                gridSpace.button.setImageResource(R.drawable.o)
-                gridSpace.xOrO = 'o'
+                gridSpace.button.setImageResource(playerTwoResourse)
+                gridSpace.xOrO = playerTwoSymb
                 playerTurn = 1
                 playerTurnTextView.text = "Player 1 Turn"
             }
@@ -210,8 +235,8 @@ class GameScreenFragment:Fragment() {
             }
         }
 
-        gridSpace.xOrO = 'o'
-        gridSpace.button.setImageResource(R.drawable.o)
+        gridSpace.xOrO = playerTwoSymb
+        gridSpace.button.setImageResource(playerTwoResourse)
         playerTurn = 1
         playerTurnTextView.text = "Player 1 Turn"
     }
@@ -220,12 +245,12 @@ class GameScreenFragment:Fragment() {
         val game = HistoryData()
         if(numOfPlayers == 2) {
             game.singlePlayer = false
-            if(winner == 'x') {
+            if(winner == playerOneSymb) {
                 game.winner = "Player 1"
                 game.loser = "Player 2"
                 game.didTie = false
             }
-            else if (winner == 'o'){
+            else if (winner == playerTwoSymb){
                 game.winner = "Player 2"
                 game.loser = "Player 1"
                 game.didTie = false
@@ -240,13 +265,13 @@ class GameScreenFragment:Fragment() {
 
         else {
             game.singlePlayer = true
-            if(winner == 'x') {
+            if(winner == playerOneSymb) {
                 game.winner = "Player 1"
                 game.loser = "Computer"
                 game.didTie = false
             }
 
-            else if(winner == 'o') {
+            else if(winner == playerTwoSymb) {
                 game.winner = "Computer"
                 game.loser = "Player 1"
                 game.didTie = false
@@ -307,7 +332,7 @@ class GameScreenFragment:Fragment() {
 
     //Setting the winning player text and making the field visable and buttons visable
     private fun setWinText(xOrO: Char){
-        if(xOrO == 'x') {
+        if(xOrO == playerOneSymb) {
             playerWinTextView.text = "Player 1 Wins!!!"
         }
         else if(numOfPlayers == 2) {
