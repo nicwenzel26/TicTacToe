@@ -19,6 +19,7 @@ import com.csci448.a2.data.GridSpace
 import com.csci448.a2.data.HistoryData
 
 private const val logTag = "448.GSF"
+private const val KEY_INDEX_TURN = "player turn"
 
 class GameScreenFragment:Fragment() {
     /*
@@ -56,7 +57,7 @@ class GameScreenFragment:Fragment() {
      */
     private var listOfGridSpace = mutableListOf<GridSpace>()
     private var numOfPlayers = 2
-    private var playerTurn = 1
+    private var playerTurn = 0
     private var playerOneSymb = 'x'
     private var playerTwoSymb = 'o'
     private var playerOneResourse = R.drawable.x
@@ -85,6 +86,12 @@ class GameScreenFragment:Fragment() {
         super.onDetach()
     }
 
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+
+        savedInstanceState.putInt(KEY_INDEX_TURN, playerTurn )
+    }
+
     //Setting view models and variables
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +112,11 @@ class GameScreenFragment:Fragment() {
         //If the player one first preference is checked se the current player turn accordingly
         if(playerOneFirst) playerTurn = 2
         else playerTurn = 1
+
+        val currentPlayerTurn = savedInstanceState?.getInt(KEY_INDEX_TURN, 0)?: 0
+        if(currentPlayerTurn != 0 ) {
+            playerTurn = currentPlayerTurn
+            }
 
         if(playerOneX) {
             playerOneSymb = 'o'
