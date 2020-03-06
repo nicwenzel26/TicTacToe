@@ -17,4 +17,14 @@
     <string name="winner">Winner</string>
     <string name="loser">Loser</string>
     <string name="tie">Tie</string>
+
+    <string name="game_settings">Game Settings</string>
+    <string name="num_humans">Number of Human Players</string>
+    <string name="human_goes_first">Human Goes First</string>
+    <string name="player_1_symbol">Player 1 Symbol</string>
+    <string name="system_settings">System Settings</string>
+    <string name="clear_data">Clear Database</string>
+    <string name="erease">Erase all records of games played.</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
 </resources>

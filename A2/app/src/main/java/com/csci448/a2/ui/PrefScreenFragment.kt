@@ -1,20 +1,18 @@
 package com.csci448.a2.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import com.csci448.a2.R
 
-class PrefScreenFragment:Fragment() {
+class PrefScreenFragment: PreferenceFragmentCompat() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.pref_screen_fragment, container,false)
-        return view
+
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.pref, rootKey)
+
     }
+
+    
+
 }

@@ -2,6 +2,7 @@ package com.csci448.a2.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +12,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.csci448.a2.R
 import com.csci448.a2.data.GridSpace
 import com.csci448.a2.data.HistoryData
 
-class GameScreenFragment:Fragment() {
+private const val logTag = "448.GSF"
 
+class GameScreenFragment:Fragment() {
+    /*
+   LATEINITS ********************************************************************************
+    */
     private lateinit var newGameButton: Button
     private lateinit var playerTurnTextView: TextView
     private lateinit var playerWinTextView: TextView
     private lateinit var returnButton: Button
     private lateinit var historyViewModel: HistoryViewModel
 
-
+    //There is probably a better way to do this but I couldn't thing of anything but buttons
     private lateinit var button_11 : ImageButton
     private lateinit var button_12 : ImageButton
     private lateinit var button_13 : ImageButton
@@ -44,30 +51,55 @@ class GameScreenFragment:Fragment() {
     private lateinit var grid_32: GridSpace
     private lateinit var grid_33: GridSpace
 
+    /*
+    VARIABLE INIT ******************************************************************************
+     */
     private var listOfGridSpace = mutableListOf<GridSpace>()
-
     private var numOfPlayers = 2
     private var playerTurn = 1
 
+
+    //Interface for managing the transition between fragments. Behavior determined by MainActivity
     interface CallBacks {
         fun resetGame()
         fun returnGame()
     }
 
+    //Initially setting callbacks to null
     private var callBacks: CallBacks? = null
 
+    //OnAttach overridden to set callbacks as the current context
     override fun onAttach(context: Context) {
+        Log.d(logTag, "onAttach() called")
         callBacks = context as CallBacks?
         super.onAttach(context)
     }
 
+    //OnDetach overridden to reset callbacks back to null
     override fun onDetach() {
         callBacks = null
         super.onDetach()
     }
 
+    //Setting view models and variables
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Retrieving the shared preferences
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        //Checking to see if user wants two players
+        val twoPlayer = sharedPreferences.getBoolean("numPlayers", false)
+        //Checking to see if the player wants player 1 to start
+        val playerOneFirst = sharedPreferences.getBoolean("humanStart", true)
+
+        //If the two player preference is checked set the number of players to 2 otherwise to 1
+        if(twoPlayer) numOfPlayers = 2
+        else numOfPlayers = 1
+
+        //If the player one first preference is checked se the current player turn accordingly
+        if(playerOneFirst) playerTurn = 1
+        else playerTurn = 2
+
 
         val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
