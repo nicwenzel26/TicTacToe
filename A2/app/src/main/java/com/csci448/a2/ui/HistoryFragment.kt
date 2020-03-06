@@ -12,25 +12,30 @@ import com.csci448.a2.R
 import com.csci448.a2.data.HistoryData
 
 class HistoryFragment:Fragment() {
-
+    //Interface for moving between the history screen and the other available screens in the game
     interface CallBacks {
         fun onNewGameSelect()
         fun onExitSelect()
         fun onPrefSelect()
 
     }
-
+    /*
+    LATE INIT ********************************************************************
+     */
     private lateinit var historyViewModel: HistoryViewModel
     private lateinit var adapter: HistoryListAdapter
     private lateinit var historyRecyclerView: RecyclerView
 
+    //Set callbacks object to be null initially
     private var callbacks: CallBacks? = null
+
+    //Overriding onAttach() to set the context for the callbacks option
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         callbacks = context as CallBacks?
     }
 
+    //Overriding onDetach() to set the callbacks object back to null
     override fun onDetach() {
         super.onDetach()
         callbacks = null
@@ -39,8 +44,10 @@ class HistoryFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Setting the options menu to be visible for this object
         setHasOptionsMenu(true)
 
+        //Getting the factory and setting the view model for the fragment so it can access the data base
         val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
@@ -50,10 +57,13 @@ class HistoryFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //Inflate the empty recycle view
         val view = inflater.inflate(R.layout.history_screen_list_fragment,container,false)
         historyRecyclerView = view.findViewById(R.id.history_recycler_view) as RecyclerView
         historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        //Update the UI with the adapter for the database
         updateUI(emptyList())
 
         return view
@@ -61,6 +71,7 @@ class HistoryFragment:Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        //Inflate the options menu XML
         inflater.inflate(R.menu.history_screen_list_fragment,menu)
     }
 
@@ -80,6 +91,7 @@ class HistoryFragment:Fragment() {
     }
 
     private fun updateUI(history:List<HistoryData>) {
+        //Get the adapter for the database
         adapter = HistoryListAdapter(history)
         historyRecyclerView.adapter = adapter
 

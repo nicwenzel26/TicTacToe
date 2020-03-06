@@ -443,7 +443,7 @@ class GameScreenFragment:Fragment() {
                 allFull = false
             }
         }
-        //If the game board is full then set the text to be a tie and tell the game that the game is over to show buttons and lock 
+        //If the game board is full then set the text to be a tie and tell the game that the game is over to show buttons and lock
         if(allFull) {
             playerWinTextView.text = "Tie!!!"
             winningPlayer = "Tie!!!"
