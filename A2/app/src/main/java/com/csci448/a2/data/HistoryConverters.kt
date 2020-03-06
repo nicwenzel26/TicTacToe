@@ -5,7 +5,7 @@ import java.util.*
 
 /*
 Allows the database and functions pulling from the data base to understand what Java dates are
-and what UUIDs are since they are not built into SQLite 
+and what UUIDs are since they are not built into SQLite
  */
 
 class HistoryConverters {

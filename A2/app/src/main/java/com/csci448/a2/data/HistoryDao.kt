@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
 
+/*
+Object for holding the query needed for the program
+ */
+
 @Dao
 interface HistoryDao {
     @Query("SELECT * FROM historydata")

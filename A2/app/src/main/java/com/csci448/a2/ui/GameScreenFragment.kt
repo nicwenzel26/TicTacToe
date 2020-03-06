@@ -18,6 +18,9 @@ import com.csci448.a2.R
 import com.csci448.a2.data.GridSpace
 import com.csci448.a2.data.HistoryData
 
+/*
+Constants *********************************************************************************
+ */
 private const val logTag = "448.GSF"
 private const val KEY_INDEX_TURN = "player turn"
 private const val KEY_INDEX_BOARD = "current board"
@@ -92,6 +95,7 @@ class GameScreenFragment:Fragment() {
         super.onDetach()
     }
 
+    //Putting all the information needed for a state change into the bundle
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
 
@@ -123,8 +127,10 @@ class GameScreenFragment:Fragment() {
         if(playerOneFirst) playerTurn = 2
         else playerTurn = 1
 
+        //Getting the current values of the grid spaces from the bundle
         currentButtons = savedInstanceState?.getCharArray(KEY_INDEX_BOARD) ?: charArrayOf('b','b','b','b','b','b', 'b', 'b', 'b')
 
+        //Determining what player turn it is based on bundle information
         val currentPlayerTurn = savedInstanceState?.getInt(KEY_INDEX_TURN, 0)?: 0
         if(currentPlayerTurn != 0 ) {
             playerTurn = currentPlayerTurn
@@ -143,7 +149,7 @@ class GameScreenFragment:Fragment() {
             playerTwoResourse = R.drawable.o
         }
 
-
+        //Getting instance of the data view model so we can write to the data base
         val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
@@ -169,6 +175,8 @@ class GameScreenFragment:Fragment() {
         playerWinTextView = view.findViewById(R.id.player_wins_text_view)
         returnButton = view.findViewById(R.id.return_button)
 
+        //Handling if the state changed and the player was in the middle of the game
+        //For each grid member set the symbold and information based on what it was previously
         for(i in 0..8) {
             if(currentButtons[i] == playerOneSymb){
                 listOfGridSpace[i].button.setImageResource(playerOneResourse)
@@ -186,18 +194,23 @@ class GameScreenFragment:Fragment() {
         else {
             playerTurnTextView.text = "Player 2 Turn"
             if(numOfPlayers == 1) {
+                //If the player wants the computer to go first call computerTurn()
                 computerTurn()
             }
         }
 
+        //Getting if the game is over from the saved instance state
         val hasWon = savedInstanceState?.getBoolean(KEY_INDEX_WON) ?: false
         val winner = savedInstanceState?.getString(KEY_INDEX_WINNER)
 
+        //If the game is over make sure that nothing changes in terms of button visibility and text
         if(hasWon) {
             newGameButton.visibility = View.VISIBLE
             returnButton.visibility = View.VISIBLE
             playerWinTextView.visibility = View.VISIBLE
             playerWinTextView.text = winner
+            removeOnClickListener()
+
         }
 
         //Setting on click listeners for end game buttons
@@ -222,27 +235,36 @@ class GameScreenFragment:Fragment() {
 
     //Check if space is used. If yes tell the user, if no assign their piece
     private fun checkSpace(gridSpace: GridSpace) {
+        //Check to see if the space is available to pick
         if(gridSpace.xOrO == null) {
             if(playerTurn == 1) {
-
+                //Set this grid space to be player ones space and change the turn to the next player
                 gridSpace.button.setImageResource(playerOneResourse)
                 gridSpace.xOrO = playerOneSymb
                 playerTurn = 2
                 currentButtons[gridSpace.position] = playerOneSymb
                 playerTurnTextView.text = "Player 2 Turn"
-
-                if(numOfPlayers == 1) {
+                //Check to see if the players choice results in a win
+                checkWIn()
+                //If the computer is player2 then have the computer take its turn if the previous move did not win the game
+                //Check to see if the computers placement resulted in a win
+                if(numOfPlayers == 1 && !playerWon) {
                     computerTurn()
+                    checkWIn()
                 }
             }
             else {
+                //Set the selected grid space to be player twos and then change the turn back to player two
+                //Check to see if that move results in victory
                 gridSpace.button.setImageResource(playerTwoResourse)
                 gridSpace.xOrO = playerTwoSymb
                 currentButtons[gridSpace.position] = playerTwoSymb
                 playerTurn = 1
                 playerTurnTextView.text = "Player 1 Turn"
+                checkWIn()
             }
-            checkWIn()
+
+
         }
         else {
             Toast.makeText(context, "That space is already taken", Toast.LENGTH_SHORT).show()
@@ -250,6 +272,10 @@ class GameScreenFragment:Fragment() {
     }
     //Turn for the computer if the player is playing a 1 person game
     private fun computerTurn() {
+        /*
+        Not especially advanced AI, picks a random
+         */
+
         var randGridSpace = (1..9).random()
         val badButton = ImageButton(context)
         var gridSpace = GridSpace(badButton, position = -1)

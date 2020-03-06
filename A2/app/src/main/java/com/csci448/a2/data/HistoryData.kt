@@ -4,6 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
+/*
+Data class to hold the information that will go into the data objects for the history page
+UUID for unique database objects
+ */
 @Entity
 data class HistoryData(@PrimaryKey val id: UUID = UUID.randomUUID(),
                        var winner:String? = null,
