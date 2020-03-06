@@ -14,6 +14,10 @@ abstract class HistoryDatabase: RoomDatabase() {
     //Connecting the Dao
     abstract fun historyDao() : HistoryDao
 
+    override fun clearAllTables() {
+
+    }
+
     companion object {
         private var instance: HistoryDatabase? = null
 

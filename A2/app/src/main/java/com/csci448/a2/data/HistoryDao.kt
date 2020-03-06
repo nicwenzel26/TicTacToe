@@ -10,12 +10,15 @@ Object for holding the query needed for the program
 
 @Dao
 interface HistoryDao {
+    //Get all previous games stored in the database
     @Query("SELECT * FROM historydata")
     fun getHistory():LiveData<List<HistoryData>>
 
+    //Get one specific item of history
     @Query("SELECT * FROM historydata WHERE id=(:id)")
     fun getHistoryData(id:UUID):LiveData<HistoryData?>
 
+    //Insert new game
     @Insert
     fun insertGame(historyData:HistoryData)
 

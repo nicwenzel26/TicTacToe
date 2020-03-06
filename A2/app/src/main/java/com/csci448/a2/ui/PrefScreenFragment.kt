@@ -9,9 +9,12 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.csci448.a2.R
+import com.csci448.a2.data.HistoryDatabase
+import java.util.concurrent.Executors
 
 class PrefScreenFragment: PreferenceFragmentCompat() {
     private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var  historyDataBase : HistoryDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,8 @@ class PrefScreenFragment: PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref, rootKey)
+
+
 
         val deleteData :Preference? = findPreference("erase")
 

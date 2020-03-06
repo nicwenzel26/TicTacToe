@@ -8,7 +8,7 @@ import java.util.concurrent.Executors
 class HistoryRepository(private val historyDao: HistoryDao) {
     private val executor = Executors.newSingleThreadExecutor()
 
-
+    //Implementing DAO operations
     fun getHistory():LiveData<List<HistoryData>> = historyDao.getHistory()
     fun getHistoryData(id:UUID):LiveData<HistoryData?> = historyDao.getHistoryData(id)
     fun insertGame(historyData: HistoryData) {
@@ -16,7 +16,11 @@ class HistoryRepository(private val historyDao: HistoryDao) {
             historyDao.insertGame(historyData)
         }
     }
-    fun deleteAll() = historyDao.deleteAll()
+    fun deleteAll()  {
+        executor.execute {
+            historyDao.deleteAll()
+        }
+    }
 
 
     companion object{
