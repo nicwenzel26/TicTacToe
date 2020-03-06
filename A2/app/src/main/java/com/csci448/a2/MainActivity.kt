@@ -7,7 +7,7 @@ import com.csci448.a2.ui.HistoryFragment
 import com.csci448.a2.ui.HomeScreenFragment
 import com.csci448.a2.ui.PrefScreenFragment
 
-class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScreenFragment.CallBacks {
+class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScreenFragment.CallBacks, HistoryFragment.CallBacks {
 
     override fun onNewGameSelect() {
         val fragment = GameScreenFragment()

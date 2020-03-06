@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/new_game_menu_item"
+        android:icon="@drawable/ic_new_game"
+        android:title="@string/newGame"
+        app:showAsAction="withText|ifRoom"/>
+
+    <item
+        android:id="@+id/prefrences_menu_item"
+        android:icon="@drawable/ic_pref"
+        android:title="@string/pref"
+        app:showAsAction="withText|ifRoom"/>
+
+    <item
+        android:title="@string/exit_label"
+        android:id="@+id/exit_game_menu_item"
+        android:icon="@drawable/ic_exit"
+        app:showAsAction="withText|never"/>
+
+</menu>
