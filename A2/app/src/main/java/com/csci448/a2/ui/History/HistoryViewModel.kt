@@ -1,4 +1,4 @@
-package com.csci448.a2.ui
+package com.csci448.a2.ui.History
 
 import androidx.lifecycle.ViewModel
 import com.csci448.a2.data.HistoryData

@@ -1,10 +1,11 @@
-package com.csci448.a2.ui
+package com.csci448.a2.ui.History
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.a2.R
 import com.csci448.a2.data.HistoryData
+import com.csci448.a2.ui.History.HistoryHolder
 
 class HistoryListAdapter(private val history: List<HistoryData>): RecyclerView.Adapter<HistoryHolder>() {
     override fun getItemCount(): Int {

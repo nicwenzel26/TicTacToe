@@ -1,4 +1,4 @@
-package com.csci448.a2.ui
+package com.csci448.a2.ui.History
 
 import android.content.Context
 import android.os.Bundle

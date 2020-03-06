@@ -1,16 +1,13 @@
 package com.csci448.a2.ui
 
 import android.os.Bundle
-import android.widget.CheckBox
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreferenceCompat
 import com.csci448.a2.R
 import com.csci448.a2.data.HistoryDatabase
-import java.util.concurrent.Executors
+import com.csci448.a2.ui.History.HistoryViewModel
+import com.csci448.a2.ui.History.HistoryViewModelFactory
 
 class PrefScreenFragment: PreferenceFragmentCompat() {
     private lateinit var historyViewModel: HistoryViewModel
@@ -22,8 +19,6 @@ class PrefScreenFragment: PreferenceFragmentCompat() {
         val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
-
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref, rootKey)
 
