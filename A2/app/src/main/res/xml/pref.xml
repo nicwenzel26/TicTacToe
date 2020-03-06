@@ -30,7 +30,7 @@
         <Preference
             app:key="erase"
             app:title="Erase Database"
-            app:summary="Erase all records of games played."
+            app:summary="Erase all records of games played\nWARNING THIS CAN NOT BE UNDONE."
             app:icon="@drawable/ic_delete"/>
 
     </PreferenceCategory>
