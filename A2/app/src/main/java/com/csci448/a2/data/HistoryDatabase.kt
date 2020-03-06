@@ -3,12 +3,15 @@ package com.csci448.a2.data
 import android.content.Context
 import androidx.room.*
 
+//SQLite table name
 private const val DATABASE_NAME = "history-database"
 
+//Saying the database should be made of HistoryData values
 @Database(entities = [HistoryData::class], version = 1)
+
 @TypeConverters(HistoryConverters::class)
 abstract class HistoryDatabase: RoomDatabase() {
-
+    //Connecting the Dao
     abstract fun historyDao() : HistoryDao
 
     companion object {
