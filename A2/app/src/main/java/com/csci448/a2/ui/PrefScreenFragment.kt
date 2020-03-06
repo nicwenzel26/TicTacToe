@@ -1,8 +1,10 @@
 package com.csci448.a2.ui
 
 import android.os.Bundle
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat

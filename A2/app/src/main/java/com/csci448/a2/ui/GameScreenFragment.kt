@@ -115,9 +115,9 @@ class GameScreenFragment:Fragment() {
         //Checking to see if user wants two players
         val twoPlayer = sharedPreferences.getBoolean("numPlayers", false)
         //Checking to see if the player wants player 1 to start
-        val playerOneFirst = sharedPreferences.getBoolean("humanStart", true)
+        val playerOneFirst = sharedPreferences.getBoolean("humanStart", false)
         //Checking to see if player one wants to be X
-        val playerOneX = sharedPreferences.getBoolean("player_symb", true)
+        val playerOneX = sharedPreferences.getBoolean("player_symb", false)
 
         //If the two player preference is checked set the number of players to 2 otherwise to 1
         if(twoPlayer) numOfPlayers = 2
