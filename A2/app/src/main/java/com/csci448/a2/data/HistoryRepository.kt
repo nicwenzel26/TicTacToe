@@ -16,6 +16,7 @@ class HistoryRepository(private val historyDao: HistoryDao) {
             historyDao.insertGame(historyData)
         }
     }
+    fun deleteAll() = historyDao.deleteAll()
 
 
     companion object{

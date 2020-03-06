@@ -111,6 +111,7 @@ class GameScreenFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Inflate the game screen XML
         val view = inflater.inflate(R.layout.game_screen_fragment, container, false)
 
         //GRID SETUP
@@ -119,14 +120,17 @@ class GameScreenFragment:Fragment() {
         initOnClickGrid()
         addGridToList()
 
-
+        //Find Buttons and Views *****************************************************
         newGameButton = view.findViewById(R.id.play_again_button)
         playerTurnTextView = view.findViewById(R.id.player_turn)
         playerWinTextView = view.findViewById(R.id.player_wins_text_view)
         returnButton = view.findViewById(R.id.return_button)
 
-        playerTurnTextView.text = "Player 1 Turn"
+        //Setting current turn text based on preference
+        if(playerTurn == 1) playerTurnTextView.text = "Player 1 Turn"
+        else playerTurnTextView.text = "Player 2 Turn"
 
+        //Setting on click listeners for end game buttons
         newGameButton.setOnClickListener { callBacks?.resetGame() }
         returnButton.setOnClickListener { callBacks?.returnGame() }
 
@@ -233,6 +237,28 @@ class GameScreenFragment:Fragment() {
                 game.loser = "Player 2"
             }
         }
+
+        else {
+            game.singlePlayer = true
+            if(winner == 'x') {
+                game.winner = "Player 1"
+                game.loser = "Computer"
+                game.didTie = false
+            }
+
+            else if(winner == 'o') {
+                game.winner = "Computer"
+                game.loser = "Player 1"
+                game.didTie = false
+            }
+
+            else {
+                game.didTie = true
+                game.winner = "Player 1"
+                game.loser = "Computer"
+            }
+        }
+
         historyViewModel.addGame(game)
 
     }
@@ -274,15 +300,9 @@ class GameScreenFragment:Fragment() {
     }
     //Removes the on click listeners for all the buttons so after win there is no more play
     private fun removeOnClickListener() {
-        grid_11.button.setOnClickListener {  }
-        grid_12.button.setOnClickListener {  }
-        grid_13.button.setOnClickListener {  }
-        grid_21.button.setOnClickListener { }
-        grid_22.button.setOnClickListener {  }
-        grid_23.button.setOnClickListener { }
-        grid_31.button.setOnClickListener {  }
-        grid_32.button.setOnClickListener {  }
-        grid_33.button.setOnClickListener {  }
+        for( item in listOfGridSpace) {
+            item.button.setOnClickListener {  }
+        }
     }
 
     //Setting the winning player text and making the field visable and buttons visable
@@ -290,8 +310,12 @@ class GameScreenFragment:Fragment() {
         if(xOrO == 'x') {
             playerWinTextView.text = "Player 1 Wins!!!"
         }
-        else {
+        else if(numOfPlayers == 2) {
             playerWinTextView.text = "Player 2 Wins!!!"
+        }
+
+        else {
+            playerWinTextView.text = "Computer Wins!!!"
         }
         playerWinTextView.visibility = View.VISIBLE
         newGameButton.visibility = View.VISIBLE

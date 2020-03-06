@@ -10,4 +10,8 @@ class HistoryViewModel(private val historyRepository: HistoryRepository):ViewMod
     fun addGame(historyData: HistoryData) {
         historyRepository.insertGame(historyData)
     }
+
+    fun deleteAll() {
+        historyRepository.deleteAll()
+    }
     }
