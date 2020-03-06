@@ -267,15 +267,17 @@ class GameScreenFragment:Fragment() {
 
         }
         else {
+            //Let the user know that the space they selected is not available
             Toast.makeText(context, "That space is already taken", Toast.LENGTH_SHORT).show()
         }
     }
     //Turn for the computer if the player is playing a 1 person game
     private fun computerTurn() {
         /*
-        Not especially advanced AI, picks a random
+        Not especially advanced AI
          */
 
+        //Get a random value between 1 and 9 to select a spot on the grid
         var randGridSpace = (1..9).random()
         val badButton = ImageButton(context)
         var gridSpace = GridSpace(badButton, position = -1)
@@ -292,7 +294,7 @@ class GameScreenFragment:Fragment() {
             9 -> gridSpace = grid_33
             else -> gridSpace = gridSpace
         }
-
+        //make sure the random spot is not taken
         while(gridSpace.xOrO != null) {
             randGridSpace = (1..9).random()
             when(randGridSpace) {
@@ -308,7 +310,7 @@ class GameScreenFragment:Fragment() {
                 else -> gridSpace = gridSpace
             }
         }
-
+        //Set the space to be taken by the computer and change the turn back to Player1
         gridSpace.xOrO = playerTwoSymb
         gridSpace.button.setImageResource(playerTwoResourse)
         playerTurn = 1
@@ -316,6 +318,7 @@ class GameScreenFragment:Fragment() {
         playerTurnTextView.text = "Player 1 Turn"
     }
 
+    //Function for adding an instance of the game to the data base. Pass in the winner and set the appropriate fields
     private fun createGameHistory(winner: Char) {
         val game = HistoryData()
         if(numOfPlayers == 2) {
@@ -358,7 +361,7 @@ class GameScreenFragment:Fragment() {
                 game.loser = "Computer"
             }
         }
-
+        //Commit the game to the database
         historyViewModel.addGame(game)
 
     }
@@ -432,7 +435,7 @@ class GameScreenFragment:Fragment() {
         determineWin('o')
         determineTie()
     }
-
+    //If all the spots on the grid are filled and there isn't a win condition the game is tied
     private fun determineTie() {
         var allFull = true
         for(item in listOfGridSpace) {
@@ -440,7 +443,7 @@ class GameScreenFragment:Fragment() {
                 allFull = false
             }
         }
-
+        //If the game board is full then set the text to be a tie and tell the game that the game is over to show buttons and lock 
         if(allFull) {
             playerWinTextView.text = "Tie!!!"
             winningPlayer = "Tie!!!"
