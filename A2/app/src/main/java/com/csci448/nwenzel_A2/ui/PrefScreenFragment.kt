@@ -1,13 +1,12 @@
-package com.csci448.a2.ui
+package com.csci448.nwenzel_A2.ui
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.csci448.a2.R
-import com.csci448.a2.data.HistoryDatabase
-import com.csci448.a2.ui.History.HistoryViewModel
-import com.csci448.a2.ui.History.HistoryViewModelFactory
+import com.csci448.nwenzel_A2.R
+import com.csci448.nwenzel_A2.ui.History.HistoryViewModel
+import com.csci448.nwenzel_A2.ui.History.HistoryViewModelFactory
 
 class PrefScreenFragment: PreferenceFragmentCompat() {
     //Getting the history view model to delete the database

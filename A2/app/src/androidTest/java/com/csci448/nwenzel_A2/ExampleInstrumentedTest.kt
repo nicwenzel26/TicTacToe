@@ -1,4 +1,4 @@
-package com.csci448.a2
+package com.csci448.nwenzel_A2
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

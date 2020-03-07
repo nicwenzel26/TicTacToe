@@ -1,8 +1,8 @@
-package com.csci448.a2.ui.History
+package com.csci448.nwenzel_A2.ui.History
 
 import androidx.lifecycle.ViewModel
-import com.csci448.a2.data.HistoryData
-import com.csci448.a2.data.HistoryRepository
+import com.csci448.nwenzel_A2.data.HistoryData
+import com.csci448.nwenzel_A2.data.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository):ViewModel() {
     val historyListLiveData = historyRepository.getHistory()

@@ -1,10 +1,10 @@
-package com.csci448.a2.ui
+package com.csci448.nwenzel_A2.ui
 
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.csci448.a2.R
+import com.csci448.nwenzel_A2.R
 
 class HomeScreenFragment:Fragment() {
 

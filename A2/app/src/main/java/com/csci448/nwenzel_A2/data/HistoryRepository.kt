@@ -1,4 +1,4 @@
-package com.csci448.a2.data
+package com.csci448.nwenzel_A2.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData

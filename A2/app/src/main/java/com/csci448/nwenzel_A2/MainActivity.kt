@@ -1,11 +1,11 @@
-package com.csci448.a2
+package com.csci448.nwenzel_A2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.csci448.a2.ui.GameScreenFragment
-import com.csci448.a2.ui.History.HistoryFragment
-import com.csci448.a2.ui.HomeScreenFragment
-import com.csci448.a2.ui.PrefScreenFragment
+import com.csci448.nwenzel_A2.ui.GameScreenFragment
+import com.csci448.nwenzel_A2.ui.History.HistoryFragment
+import com.csci448.nwenzel_A2.ui.HomeScreenFragment
+import com.csci448.nwenzel_A2.ui.PrefScreenFragment
 
 class MainActivity : AppCompatActivity(), HomeScreenFragment.CallBacks, GameScreenFragment.CallBacks, HistoryFragment.CallBacks {
 

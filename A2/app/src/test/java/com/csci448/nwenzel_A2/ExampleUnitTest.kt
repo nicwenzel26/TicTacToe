@@ -1,4 +1,4 @@
-package com.csci448.a2
+package com.csci448.nwenzel_A2
 
 import org.junit.Test
 

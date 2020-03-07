@@ -1,4 +1,4 @@
-package com.csci448.a2.ui
+package com.csci448.nwenzel_A2.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -13,11 +13,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import com.csci448.a2.R
-import com.csci448.a2.data.GridSpace
-import com.csci448.a2.data.HistoryData
-import com.csci448.a2.ui.History.HistoryViewModel
-import com.csci448.a2.ui.History.HistoryViewModelFactory
+import com.csci448.nwenzel_A2.R
+import com.csci448.nwenzel_A2.data.GridSpace
+import com.csci448.nwenzel_A2.data.HistoryData
+import com.csci448.nwenzel_A2.ui.History.HistoryViewModel
+import com.csci448.nwenzel_A2.ui.History.HistoryViewModelFactory
 
 /*
 Constants *********************************************************************************

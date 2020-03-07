@@ -1,4 +1,4 @@
-package com.csci448.a2.ui.History
+package com.csci448.nwenzel_A2.ui.History
 
 import android.content.Context
 import android.os.Bundle
@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.csci448.a2.R
-import com.csci448.a2.data.HistoryData
+import com.csci448.nwenzel_A2.R
+import com.csci448.nwenzel_A2.data.HistoryData
 
 class HistoryFragment:Fragment() {
     //Interface for moving between the history screen and the other available screens in the game
