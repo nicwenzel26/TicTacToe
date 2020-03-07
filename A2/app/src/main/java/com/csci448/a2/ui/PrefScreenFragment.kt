@@ -10,15 +10,16 @@ import com.csci448.a2.ui.History.HistoryViewModel
 import com.csci448.a2.ui.History.HistoryViewModelFactory
 
 class PrefScreenFragment: PreferenceFragmentCompat() {
+    //Getting the history view model to delete the database
     private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var  historyDataBase : HistoryDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //Init the view model from the factory
         val factory = HistoryViewModelFactory(requireContext())
         historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
     }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref, rootKey)
 

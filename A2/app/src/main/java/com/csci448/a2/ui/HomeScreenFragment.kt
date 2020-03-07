@@ -8,6 +8,7 @@ import com.csci448.a2.R
 
 class HomeScreenFragment:Fragment() {
 
+    //Interface for handling the screen transitions, gets sent back to main activity
     interface CallBacks {
         fun onNewGameSelect()
         fun onPrefSelect()
@@ -16,13 +17,16 @@ class HomeScreenFragment:Fragment() {
 
     }
 
+    //Setting call backs to null init
     private var callbacks: CallBacks? = null
 
+    //Overriding onAttach to set the callbacks object as the context
     override fun onAttach(context: Context) {
         callbacks = context as CallBacks?
         super.onAttach(context)
     }
 
+    //Overriding onDetach() to reset the callbacks object back to null
     override fun onDetach() {
         callbacks = null
         super.onDetach()
@@ -38,7 +42,6 @@ class HomeScreenFragment:Fragment() {
         return view
     }
 
-    //TODO get icons and text for icons in menu bar
     //Inflate the options menu for the home screen
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -64,6 +67,7 @@ class HomeScreenFragment:Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Tell the OS this fragment has an options menu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
